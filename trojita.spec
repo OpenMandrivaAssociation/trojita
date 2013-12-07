@@ -1,6 +1,6 @@
 Name:		trojita
 Version:	0.3.93
-Release:	4
+Release:	5
 Group:		Networking/Mail
 License:	GPLv2 or GPLv3
 Summary:	Qt IMAP e-mail client
