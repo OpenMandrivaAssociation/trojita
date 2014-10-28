@@ -1,20 +1,28 @@
 Name:		trojita
-Version:	0.3.93
-Release:	7
+Version:	0.4.1
+Release:	1
 Group:		Networking/Mail
 License:	GPLv2 or GPLv3
 Summary:	Qt IMAP e-mail client
 Url:		http://trojita.flaska.net
 Source0:	http://sourceforge.net/projects/trojita/files/src/%{name}-%{version}.tar.bz2
 
-BuildRequires:	qt4-devel
-BuildRequires:	pkgconfig(QtWebKit)
-BuildRequires:	qt4-linguist
+BuildRequires:	qt5-devel
+BuildRequires:	pkgconfig(Qt5Core)
+BuildRequires:	pkgconfig(Qt5Gui)
+BuildRequires:	pkgconfig(Qt5Network)
+BuildRequires:	pkgconfig(Qt5Sql)
+BuildRequires:	pkgconfig(Qt5WebKit)
+BuildRequires:	pkgconfig(Qt5WebKitWidgets)
+BuildRequires:	pkgconfig(Qt5Widgets)
+BuildRequires:	qt5-linguist
+BuildRequires:	cmake
+BuildRequires:	ninja
 
 %description
 %{summary}
 
-* A pure Qt4 application with no additional dependencies
+* A pure Qt application with no additional dependencies
 * Robust IMAP core implemented using Qt's Model-View framework
 * Standards compliance is a design goal
 * Support for bandwidth-saving mode aimed at mobile users 
@@ -28,17 +36,27 @@ BuildRequires:	qt4-linguist
 
 %prep
 %setup -q
+# Evil workaround for build failure
+echo 'add_definitions(-fvisibility=default)' >>CMakeLists.txt
+
+%cmake -DWITH_QT5:BOOL=ON
 
 %build
-%qmake_qt4 PREFIX=%{_prefix}
-%make
+%make -C build
 
 %install
-make INSTALL_ROOT=%{buildroot} install
+%makeinstall_std -C build
+
+mkdir -p %{buildroot}%{_libdir}
+for i in AbookAddressbook AppVersion Common DesktopGui Composer Imap MSA Streams qwwsmtpclient; do
+	cp -a build/lib$i.so %{buildroot}%{_libdir}/
+done
 
 %files
 %{_bindir}/%{name}
+%{_bindir}/be.contacts
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_datadir}/%{name}/locale/*.qm
+%{_libdir}/*.so
