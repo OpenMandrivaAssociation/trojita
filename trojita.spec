@@ -1,6 +1,6 @@
 Name:		trojita
-Version:	0.4.1
-Release:	2
+Version:	0.5
+Release:	1
 Group:		Networking/Mail
 License:	GPLv2 or GPLv3
 Summary:	Qt IMAP e-mail client
@@ -18,6 +18,9 @@ BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	qt5-linguist
 BuildRequires:	cmake
 BuildRequires:	ninja
+BuildRequires:	ragel
+# For tests
+BuildRequires:  x11-server-xvfb
 
 %description
 %{summary}
@@ -39,7 +42,12 @@ BuildRequires:	ninja
 # Evil workaround for build failure
 echo 'add_definitions(-fvisibility=default)' >>CMakeLists.txt
 
-%cmake -DWITH_QT5:BOOL=ON
+%cmake \
+        -DWITH_TESTS=ON \
+        -DWITH_QT5=ON \
+        -DWITH_ZLIB=ON \
+        -DWITH_RAGEL=ON \
+        -DWITH_SHARED_PLUGINS=ON
 
 %build
 %make -C build
@@ -47,14 +55,24 @@ echo 'add_definitions(-fvisibility=default)' >>CMakeLists.txt
 %install
 %makeinstall_std -C build
 
-mkdir -p %{buildroot}%{_libdir}
-for i in AbookAddressbook AppVersion Common DesktopGui Composer Imap MSA Streams qwwsmtpclient; do
-	cp -a build/lib$i.so %{buildroot}%{_libdir}/
-done
+#mkdir -p %{buildroot}%{_libdir}
+#for i in AbookAddressbook AppVersion Common DesktopGui Composer Imap MSA Streams qwwsmtpclient; do
+#	cp -a build/lib$i.so %{buildroot}%{_libdir}/
+#done
+
+%check
+%define X_display ":98"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}${LD_LIBRARY_PATH:+:}%{buildroot}%{_libdir}"
+export DISPLAY=%{X_display}
+Xvfb %{X_display} &
+trap "kill $! || true" EXIT
+cd build
+ctest --output-on-failure
 
 %files
 %{_bindir}/%{name}
 %{_bindir}/be.contacts
+%{_datadir}/appdata/*xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
