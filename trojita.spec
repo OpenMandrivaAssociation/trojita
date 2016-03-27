@@ -10,7 +10,7 @@ Url:		http://trojita.flaska.net
 Source0:	http://sourceforge.net/projects/trojita/files/src/%{name}-%{version}.tar.bz2
 Patch1:		trojita-0.5-fix_Qt5.5_build.patch
 
-BuildRequires:	qt5-devel
+BuildRequires:	qmake5
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5Gui)
 BuildRequires:	pkgconfig(Qt5Network)
@@ -19,6 +19,7 @@ BuildRequires:	pkgconfig(Qt5WebKit)
 BuildRequires:	pkgconfig(Qt5WebKitWidgets)
 BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	pkgconfig(Qt5Test)
+BuildRequires:	cmake(Qt5Keychain)
 BuildRequires:	qt5-linguist
 BuildRequires:	qt5-linguist-tools
 BuildRequires:	cmake
