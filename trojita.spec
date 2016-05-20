@@ -1,14 +1,13 @@
 %define _disable_lto 1
 
 Name:		trojita
-Version:	0.5
-Release:	9
+Version:	0.6
+Release:	1
 Group:		Networking/Mail
 License:	GPLv2 or GPLv3
 Summary:	Qt IMAP e-mail client
 Url:		http://trojita.flaska.net
 Source0:	http://sourceforge.net/projects/trojita/files/src/%{name}-%{version}.tar.bz2
-Patch1:		trojita-0.5-fix_Qt5.5_build.patch
 
 BuildRequires:	qmake5
 BuildRequires:	pkgconfig(Qt5Core)
@@ -84,3 +83,4 @@ ctest --output-on-failure || echo "whoops"
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_datadir}/%{name}/locale/*.qm
 %{_libdir}/*.so
+%{_libdir}/%{name}
