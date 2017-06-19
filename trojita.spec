@@ -18,6 +18,7 @@ BuildRequires:	pkgconfig(Qt5WebKit)
 BuildRequires:	pkgconfig(Qt5WebKitWidgets)
 BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	pkgconfig(Qt5Test)
+BuildRequires:	pkgconfig(Qt5Svg)
 BuildRequires:	cmake(Qt5Keychain)
 BuildRequires:	qt5-linguist
 BuildRequires:	qt5-linguist-tools
