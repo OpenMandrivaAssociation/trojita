@@ -1,13 +1,13 @@
-%define _disable_lto 1
+#define _disable_lto 1
 
 Name:		trojita
-Version:	0.6
+Version:	0.7
 Release:	1
 Group:		Networking/Mail
 License:	GPLv2 or GPLv3
 Summary:	Qt IMAP e-mail client
 Url:		http://trojita.flaska.net
-Source0:	http://sourceforge.net/projects/trojita/files/src/%{name}-%{version}.tar.bz2
+Source0:	http://sourceforge.net/projects/trojita/files/src/%{name}-%{version}.tar.xz
 
 BuildRequires:	qmake5
 BuildRequires:	pkgconfig(Qt5Core)
