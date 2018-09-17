@@ -9,6 +9,7 @@ Summary:	Qt IMAP e-mail client
 Url:		http://trojita.flaska.net
 Source0:	http://sourceforge.net/projects/trojita/files/src/%{name}-%{version}.tar.xz
 Patch0:	trojita-0.7-fix-build-against-qt-5.11.0.patch
+BuildRequires:	pkgconfig(zlib)
 BuildRequires:	qmake5
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
