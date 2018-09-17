@@ -8,9 +8,10 @@ License:	GPLv2 or GPLv3
 Summary:	Qt IMAP e-mail client
 Url:		http://trojita.flaska.net
 Source0:	http://sourceforge.net/projects/trojita/files/src/%{name}-%{version}.tar.xz
-
+Patch0:	trojita-0.7-fix-build-against-qt-5.11.0.patch
 BuildRequires:	qmake5
 BuildRequires:	pkgconfig(Qt5Core)
+BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Gui)
 BuildRequires:	pkgconfig(Qt5Network)
 BuildRequires:	pkgconfig(Qt5Sql)
@@ -19,8 +20,8 @@ BuildRequires:	pkgconfig(Qt5WebKitWidgets)
 BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	pkgconfig(Qt5Test)
 BuildRequires:	pkgconfig(Qt5Svg)
+BuildRequires:	pkgconfig(Qt5Help)
 BuildRequires:	cmake(Qt5Keychain)
-BuildRequires:	cmake(KF5Gpgmepp)
 BuildRequires:	qt5-linguist
 BuildRequires:	qt5-linguist-tools
 BuildRequires:	cmake
@@ -28,6 +29,7 @@ BuildRequires:	ninja
 BuildRequires:	ragel
 # For tests
 BuildRequires:  x11-server-xvfb
+Requires:	qt5-qtbase-database-plugin-sqlite
 
 %description
 %{summary}
@@ -45,27 +47,23 @@ BuildRequires:  x11-server-xvfb
 * Safe dealing with HTML mail (actually more robust than Thunderbird's)
 
 %prep
-%setup -q
+%autosetup -p1
 # Evil workaround for build failure
 echo 'add_definitions(-fvisibility=default)' >>CMakeLists.txt
-%apply_patches
+
 %cmake \
         -DWITH_TESTS=ON \
         -DWITH_QT5=ON \
         -DWITH_ZLIB=ON \
         -DWITH_RAGEL=ON \
-        -DWITH_SHARED_PLUGINS=ON
+        -DWITH_SHARED_PLUGINS=ON \
+        -DWITH_QTKEYCHAIN_PLUGIN=ON
 
 %build
-%make -C build
+%make_build -C build
 
 %install
-%makeinstall_std -C build
-
-#mkdir -p %{buildroot}%{_libdir}
-#for i in AbookAddressbook AppVersion Common DesktopGui Composer Imap MSA Streams qwwsmtpclient; do
-#	cp -a build/lib$i.so %{buildroot}%{_libdir}/
-#done
+%make_install -C build
 
 %check
 %define X_display ":98"
