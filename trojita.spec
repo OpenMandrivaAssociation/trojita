@@ -20,6 +20,7 @@ BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	pkgconfig(Qt5Test)
 BuildRequires:	pkgconfig(Qt5Svg)
 BuildRequires:	cmake(Qt5Keychain)
+BuildRequires:	cmake(KF5Gpgmepp)
 BuildRequires:	qt5-linguist
 BuildRequires:	qt5-linguist-tools
 BuildRequires:	cmake
