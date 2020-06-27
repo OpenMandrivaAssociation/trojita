@@ -18,7 +18,9 @@ Source0:         https://invent.kde.org/pim/trojita/-/archive/master/trojita-mas
 
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	qmake5
+BuildRequires:  cmake(KF5AkonadiContact)
 BuildRequires:  cmake(KF5Sonnet)
+BuildRequires:  cmake(Gpgmepp)
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Gui)
