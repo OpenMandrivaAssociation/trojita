@@ -86,10 +86,10 @@ ctest --output-on-failure || echo "whoops"
 %files
 %{_bindir}/%{name}
 %{_bindir}/be.contacts
-%{_datadir}/appdata/*xml
-%{_datadir}/applications/%{name}.desktop
+#{_datadir}/appdata/*xml
+#{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-%{_datadir}/%{name}/locale/*.qm
+#{_datadir}/%{name}/locale/*.qm
 %{_libdir}/*.so
 %{_libdir}/%{name}
