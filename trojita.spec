@@ -55,7 +55,8 @@ Requires:	qt5-qtbase-database-plugin-sqlite
 * Safe dealing with HTML mail (actually more robust than Thunderbird's)
 
 %prep
-%autosetup -p1 %{name}-master
+%setup -qn %{name}-master
+%autopatch -p1
 # Evil workaround for build failure
 echo 'add_definitions(-fvisibility=default)' >>CMakeLists.txt
 
