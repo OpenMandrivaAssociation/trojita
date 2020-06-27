@@ -11,7 +11,8 @@ Group:		Networking/Mail
 License:	GPLv2 or GPLv3
 Summary:	Qt IMAP e-mail client
 Url:		http://trojita.flaska.net
-Source0:        https://sourceforge.net/projects/trojita/files/src/%{name}-%{version}%{?git:-git%git}.tar.bz2
+#Source0:        https://sourceforge.net/projects/trojita/files/src/%{name}-%{version}%{?git:-git%git}.tar.bz2
+Source0:         https://invent.kde.org/pim/trojita/-/archive/master/trojita-master-20200626.tar.bz2
 
 #Git taken from: https://invent.kde.org/pim/trojita
 
