@@ -1,14 +1,20 @@
 #define _disable_lto 1
 
+# comment out when not a git snapshot
+%define git 20200626
+%define rel 3
+
 Name:		trojita
 Version:	0.7
-Release:	2
+Release:	2%{?git:1.git%git.}%{rel}
 Group:		Networking/Mail
 License:	GPLv2 or GPLv3
 Summary:	Qt IMAP e-mail client
 Url:		http://trojita.flaska.net
-Source0:	http://sourceforge.net/projects/trojita/files/src/%{name}-%{version}.tar.xz
-Patch0:	trojita-0.7-fix-build-against-qt-5.11.0.patch
+Source0:        https://sourceforge.net/projects/trojita/files/src/%{name}-%{version}%{?git:-git%git}.tar.bz2
+
+#Git taken from: https://invent.kde.org/pim/trojita
+
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	qmake5
 BuildRequires:	pkgconfig(Qt5Core)
@@ -48,7 +54,7 @@ Requires:	qt5-qtbase-database-plugin-sqlite
 * Safe dealing with HTML mail (actually more robust than Thunderbird's)
 
 %prep
-%autosetup -p1
+%autosetup -p1 %{name}-master
 # Evil workaround for build failure
 echo 'add_definitions(-fvisibility=default)' >>CMakeLists.txt
 
