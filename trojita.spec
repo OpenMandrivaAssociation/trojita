@@ -18,6 +18,7 @@ Source0:         https://invent.kde.org/pim/trojita/-/archive/master/trojita-mas
 
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	qmake5
+BuildRequires:  cmake(KF5Sonnet)
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Gui)
@@ -66,7 +67,8 @@ echo 'add_definitions(-fvisibility=default)' >>CMakeLists.txt
         -DWITH_ZLIB=ON \
         -DWITH_RAGEL=ON \
         -DWITH_SHARED_PLUGINS=ON \
-        -DWITH_QTKEYCHAIN_PLUGIN=ON
+        -DWITH_QTKEYCHAIN_PLUGIN=ON \
+        -DWITH_SONNET_PLUGIN=ON
 
 %build
 %make_build -C build
@@ -86,10 +88,9 @@ ctest --output-on-failure || echo "whoops"
 %files
 %{_bindir}/%{name}
 %{_bindir}/be.contacts
-#{_datadir}/appdata/*xml
-#{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/32x32/apps/%{name}.png
+%{_datadir}/metainfo/org.kde.trojita.appdata.xml
+%{_datadir}/applications/org.kde.trojita.desktop
+%{_datadir}/icons/hicolor/*x*/apps/%{name}.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-#{_datadir}/%{name}/locale/*.qm
 %{_libdir}/*.so
 %{_libdir}/%{name}
