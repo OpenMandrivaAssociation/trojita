@@ -69,8 +69,7 @@ echo 'add_definitions(-fvisibility=default)' >>CMakeLists.txt
         -DWITH_ZLIB=ON \
         -DWITH_RAGEL=ON \
         -DWITH_SHARED_PLUGINS=ON \
-        -DWITH_QTKEYCHAIN_PLUGIN=ON \
-        -DWITH_SONNET_PLUGIN=ON
+        -DWITH_QTKEYCHAIN_PLUGIN=ON
 
 %build
 %make_build -C build
