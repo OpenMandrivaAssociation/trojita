@@ -1,0 +1,25 @@
+diff -up trojita-master-d8f3624279f3f9054ae8236fda72a5cb64447c01/CMakeLists.txt.omv~ trojita-master-d8f3624279f3f9054ae8236fda72a5cb64447c01/CMakeLists.txt
+--- trojita-master-d8f3624279f3f9054ae8236fda72a5cb64447c01/CMakeLists.txt.omv~	2023-09-08 15:39:02.627939446 +0200
++++ trojita-master-d8f3624279f3f9054ae8236fda72a5cb64447c01/CMakeLists.txt	2023-09-08 15:39:15.551231746 +0200
+@@ -58,10 +58,10 @@ if(Qt5LinguistTools_FOUND)
+     find_package(Qt5LinguistForTrojita)
+ endif()
+ 
+-trojita_find_package(KF5AkonadiContact "" "" "" "Required for building Akonadi address book plugin")
++trojita_find_package(KPim5AkonadiContact "" "" "" "Required for building Akonadi address book plugin")
+ 
+ trojita_plugin_option(WITH_ABOOKADDRESSBOOK_PLUGIN "Build AbookAddressbook plugin" STATIC)
+-trojita_plugin_option(WITH_AKONADIADDRESSBOOK_PLUGIN "Build AkonadiAddressbook plugin" KF5AkonadiContact_FOUND)
++trojita_plugin_option(WITH_AKONADIADDRESSBOOK_PLUGIN "Build AkonadiAddressbook plugin" KPim5AkonadiContact_FOUND)
+ trojita_plugin_option(WITH_CLEARTEXT_PLUGIN "Build Cleartext password plugin" STATIC)
+ trojita_plugin_option(WITH_QTKEYCHAIN_PLUGIN "Build Qtkeychain password plugin" "${QTKEYCHAIN_DEPENDS}")
+ trojita_plugin_option(WITH_SONNET_PLUGIN "Build a plugin for spellchecking via KDE's Sonnet" "WITH_DESKTOP")
+@@ -672,7 +672,7 @@ if(WITH_AKONADIADDRESSBOOK_PLUGIN)
+     )
+ 
+     trojita_add_plugin(trojita_plugin_AkonadiAddressbookPlugin WITH_AKONADIADDRESSBOOK_PLUGIN ${libAkonadiAddressbook_SOURCES})
+-    target_link_libraries(trojita_plugin_AkonadiAddressbookPlugin KF5::AkonadiContact)
++    target_link_libraries(trojita_plugin_AkonadiAddressbookPlugin KPim5::AkonadiContact)
+     set_property(TARGET trojita_plugin_AkonadiAddressbookPlugin APPEND PROPERTY COMPILE_DEFINITIONS QT_NO_CAST_FROM_ASCII QT_NO_CAST_TO_ASCII)
+ endif()
+ 

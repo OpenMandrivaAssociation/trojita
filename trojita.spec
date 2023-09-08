@@ -1,24 +1,24 @@
 #define _disable_lto 1
 
 # comment out when not a git snapshot
-%define git 20200626
-%define rel 3
+%define git 20230809
 
 Name:		trojita
 Version:	0.7
-Release:	%{?git:2.git%git.}%{rel}
+Release:	%{?git:2.git%git.}1
 Group:		Networking/Mail
 License:	GPLv2 or GPLv3
 Summary:	Qt IMAP e-mail client
 Url:		http://trojita.flaska.net
-#Source0:        https://sourceforge.net/projects/trojita/files/src/%{name}-%{version}%{?git:-git%git}.tar.bz2
-Source0:         https://invent.kde.org/pim/trojita/-/archive/master/trojita-master-20200626.tar.bz2
+#Source0:	https://sourceforge.net/projects/trojita/files/src/%{name}-%{version}%{?git:-git%git}.tar.bz2
+Source0:	https://invent.kde.org/pim/trojita/-/archive/master/trojita-master-%{git}.tar.bz2
+Patch0:		trojita-fix-locating-akonadi.patch
 
 #Git taken from: https://invent.kde.org/pim/trojita
 
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	qmake5
-BuildRequires:  cmake(KF5AkonadiContact)
+BuildRequires:  cmake(KPim5AkonadiContact)
 #BuildRequires:  cmake(KF5Sonnet)
 BuildRequires:  cmake(Gpgmepp)
 BuildRequires:	pkgconfig(Qt5Core)
@@ -58,11 +58,7 @@ Requires:	qt5-qtbase-database-plugin-sqlite
 * Safe dealing with HTML mail (actually more robust than Thunderbird's)
 
 %prep
-%setup -qn %{name}-master
-%autopatch -p1
-# Evil workaround for build failure
-echo 'add_definitions(-fvisibility=default)' >>CMakeLists.txt
-
+%autosetup -p1 -n %{name}-master-d8f3624279f3f9054ae8236fda72a5cb64447c01
 %cmake \
         -DWITH_TESTS=ON \
         -DWITH_QT5=ON \
@@ -95,3 +91,4 @@ ctest --output-on-failure || echo "whoops"
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_libdir}/*.so
 %{_libdir}/%{name}
+%{_mandir}/man1/trojita.1*
