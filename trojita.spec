@@ -4,7 +4,7 @@
 %define git 20230809
 
 Name:		trojita
-Version:	0.7.0
+Version:	0.7.0.1
 Release:	%{?git:2.git%git.}1
 Group:		Networking/Mail
 License:	GPLv2 or GPLv3
